@@ -1,2 +1,2 @@
 # networks
-html server
+http server
