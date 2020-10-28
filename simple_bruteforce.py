@@ -18,6 +18,6 @@ def bruteforce():
             return 'Letter not in word list.'
 
         elif enter == result:
-            return f'Password: <<- {result} ->> | guess: {i}'
+            return f'Password: <<- {result} ->> | number of guesses: {i}'
 
 print(bruteforce())
