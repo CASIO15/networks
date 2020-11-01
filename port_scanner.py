@@ -23,6 +23,9 @@ for i in range(20, 1025):
     except:
         pass
 
-# Printing open ports
-for open in ports:
-    print(f'Port {open} is open...')
+# Printing open ports, else if there are no open ports
+if ports:
+    for open in ports:
+        print(f'Port {open} is open...')
+else:
+    print('No open ports...')
