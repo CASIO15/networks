@@ -1,6 +1,6 @@
 from scapy.layers.dns import *
 
-enter = input('Enter your IP address: ')
+enter = input('Enter IP address: ')
 ports = []
 
 for i in range(20, 1025):
