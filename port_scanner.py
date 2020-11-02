@@ -4,6 +4,14 @@ from time import perf_counter
 enter = input('Enter the IP address you want to scan: ')
 start = int(input('START: '))
 stop = int(input('STOP: '))
+print('''
+ ██████╗ █████╗ ███████╗██╗ ██████╗  ██╗███████╗
+██╔════╝██╔══██╗██╔════╝██║██╔═══██╗███║██╔════╝
+██║     ███████║███████╗██║██║   ██║╚██║███████╗
+██║     ██╔══██║╚════██║██║██║   ██║ ██║╚════██║
+╚██████╗██║  ██║███████║██║╚██████╔╝ ██║███████║
+ ╚═════╝╚═╝  ╚═╝╚══════╝╚═╝ ╚═════╝  ╚═╝╚══════
+''')
 ports = []
 
 print(f'scanning {enter} from port {start} to {stop}\n')
@@ -34,7 +42,8 @@ for i in range(start, stop + 1):
 if ports:
     for o in ports:
         print(f'Port << {o} >> is open...')
-
+    print('\n')
+    
 else:
     print('No open ports...')
 
