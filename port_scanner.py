@@ -38,4 +38,4 @@ if ports:
 else:
     print('No open ports...')
 
-print(f'Scan is complete | time: {abs(start_time - perf_counter())}')
+print(f'Scan is complete | time: {perf_counter() - start_time: .5f} seconds.')
