@@ -22,7 +22,7 @@ for i in range(start, stop + 1):
     syn_ack_packet = sr1(syn_packet, timeout=0.1, verbose=0)
 
     # Checking if the TCP flag is SYN - ACK
-    # if exception is raising, pass
+    # if exception is raised, pass
     try:
         if syn_ack_packet[TCP].flags == 'SA':
             ports.append(syn_ack_packet[TCP].sport)
