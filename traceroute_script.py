@@ -17,12 +17,12 @@ def traceroute(argv):
         start_packet = perf_counter()
 
         if send_it[ICMP].type == 11:
-            print(f'{send_it[IP].src},  {abs(start_packet - perf_counter() * 10): .3f} ms')
+            print(f'{send_it[IP].src},  {abs(start_packet - perf_counter() * 1000): .3f} ms')
         else:
             print(f'Packet arraived to destination {send_it[IP].src}')
             break
 
-    return f'ms {(perf_counter() - start) * 100: .3f}'
+    return f'ms {(perf_counter() - start) * 1000: .3f}'
 
 print(traceroute(argv))
 
