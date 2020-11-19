@@ -1,7 +1,7 @@
 from mac_vendor_lookup import MacLookup
 
 addr = input('Enter a MAC addr: ').strip(' ')
-IS_VALID = ''
+IS_VALID = None
 
 #Calling MacLookUp
 mac = MacLookup()
