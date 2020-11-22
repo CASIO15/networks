@@ -1,22 +1,25 @@
-from mac_vendor_lookup import MacLookup
+def mac_look(addr):
 
-addr = input('Enter a MAC addr: ').strip(' ')
-IS_VALID = None
+    addr = addr.replace('-', ':')
+    IS_VALID = None
 
-#Calling MacLookUp
-mac = MacLookup()
+    if ':' in addr and len(addr) == 17:
+        for i in addr.split(':'):
+            if len(i) == 2 and bin(int(str(i), 16))[-1] == '1':
+                IS_VALID = 'valid'
+                break
+            elif len(i) == 2 and bin(int(str(i), 16))[-1] == '0':
+                IS_VALID = 'valid'
 
-if ':' in addr and len(addr) == 17:
-    for i in addr.split(':'):
-        if len(i) == 2:
-            IS_VALID = 'valid'
-        break
-else:
-    IS_VALID = 'Invalid'
+    else:
+        IS_VALID = 'Invalid'
 
-if IS_VALID == 'valid':
-    print(f'[{IS_VALID}] Vendor id: {addr[:8]} |Vendor: {mac.lookup(addr)}|')
+    if IS_VALID == 'valid':
+        for i in addr.split(':'):
+            if bin(int(str(i), 16))[-1] == '1':
+                return f'[{IS_VALID}] Vendor id: {addr[:8]} Type: Multicast'
+            else:
+                return f'[{IS_VALID}] Vendor id: {addr[:8]} Type: Unicast'
 
-else:
-    print(IS_VALID)
-
+    else:
+        return IS_VALID
