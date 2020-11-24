@@ -5,7 +5,7 @@ def promi_scanner():
 
     """
     Scan the network for promiscuous mode by sending fake ARP broadcast,
-    in order for us to check if the os system checks all the bits or whether it will respond.
+    in order for us to check if the os system checks all the bits and drop the frame or whether it will respond.
     """
 
     enter_ip = input('Enter IP to scan: ')
