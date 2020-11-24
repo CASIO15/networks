@@ -17,13 +17,13 @@ def promi_scanner():
         arp_packet = Ether(dst='FF:FF:FF:FF:FF:FE') / ARP(pdst=f'{enter_ip}.{i}')
         router = enter_router
 
-        sendp(arp_packet)
+        sendp(arp_packet, verbose=False)
 
         sniff_it = sniff(count=1, lfilter=lambda frame: Ether in frame and ARP in frame and frame[ARP].op == 2, timeout=0.5)
 
         if sniff_it:
             if sniff_it[0][Ether][ARP].psrc != arp_packet[ARP].psrc and sniff_it[0][Ether][ARP].psrc != router:
-                return f'{sniff_it[0][Ether][ARP].psrc} is in promiscuous mode'
+                print(f'{sniff_it[0][Ether][ARP].psrc} is in promiscuous mode')
 
             else:
               pass
