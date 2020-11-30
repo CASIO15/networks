@@ -1,7 +1,10 @@
 import requests
 import hashlib
 
-url = 'http://161.35.163.196:31289/'
+
+url = input('Enter URL and Port: ')
+url = 'http://' + url + '/'
+
 session_1 = requests.session()
 
 GET = session_1.get(url)
