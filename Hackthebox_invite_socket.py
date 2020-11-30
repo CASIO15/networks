@@ -1,7 +1,10 @@
 import socket
+import json
 import ssl
+from base64 import b64decode
 
 client = socket.socket()
+result = []
 
 with client as c:
 	addr = socket.gethostbyname('www.hackthebox.eu')
@@ -25,5 +28,10 @@ with client as c:
 	
 	for i in data.readlines():
 		if 'code' in i:
-			print(i)
+			result.append(i)
+			
+for i in result:
+	extract_code = json.loads(i)["data"]["code"]
+	print(f'Your code is: {b64decode(extract_code)}')
+	
 	
