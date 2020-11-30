@@ -32,6 +32,8 @@ with client as c:
 			
 for i in result:
 	extract_code = json.loads(i)["data"]["code"]
-	print(f'Your code is: {b64decode(extract_code)}')
+        result = b64decode(extract_code)
+	print('Your code is:', str(result).replace('b', ''))
+	
 	
 	
