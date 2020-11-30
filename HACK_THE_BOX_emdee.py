@@ -1,7 +1,6 @@
 import requests
 import hashlib
 
-
 url = input('Enter URL and Port: ')
 url = 'http://' + url + '/'
 
