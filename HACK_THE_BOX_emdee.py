@@ -30,8 +30,8 @@ import socket
 import re
 import hashlib
 
-addr = '104.248.163.125'
-port = 31733
+addr = enter your session ip
+port = enter your session port
 
 def start_connection():
     client = socket.socket()
