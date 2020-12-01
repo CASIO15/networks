@@ -72,8 +72,6 @@ def POST_req(data, session):
     flag = re.findall('HTB{[A-Za-z0-9_!]+}', result)
     print('Your flag is:', flag[0])
 
-
-
 def extract_data(data):
 
     cookie_start = data.find("PHPSESSID=")
