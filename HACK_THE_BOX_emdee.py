@@ -34,6 +34,8 @@ addr = enter your session ip
 port = enter your session port
 
 def start_connection():
+    # Initiating connection once to create a session
+    
     client = socket.socket()
     client.connect((addr, port))
     return client
