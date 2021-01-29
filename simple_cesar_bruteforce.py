@@ -10,6 +10,7 @@ def decrypt(string, off_set):
 
 	for e, v in enumerate(ascii_lower):
 		off_set_dict[v] = (e - off_set) % 26
+		
 	for i in string:
 		if i != ' ':
 			res += normal_dict.get(off_set_dict[i])
