@@ -1,23 +1,29 @@
 import requests
 import re
+import base64
 
 class DecryptCesar:
 
-	def __init__(self, url, key, enctypted_str):
+	def __init__(self, url, key, encrypted_str):
 		if 'https' not in url and 'http' not in url:
 			print(f'[-] Invalid url...')
 			raise ValueError(f'The specified url |{url}| is not valid')
 
+		if DecryptCesar.check_if_b64(encrypted_str) is True:
+			print(f'[+] Decrypting base64 |{encrypted_str}|')
+			encrypted_str = base64.b64decode(encrypted_str).decode('utf-8')
+
 		self.url = url
 		self.key = key
-		self.encrypted_str = enctypted_str
+		self.encrypted_str = encrypted_str
 
 		self.highest_chance = set()
 		self.word_dict = {}
 
 	def get_words(self):
 		GET = requests.get(self.url)
-		print(f'[+] Making a GET from: {self.url}')
+		print(f'[+] Making a GET request: {self.url}')
+
 		for e, v in enumerate(re.findall(r'>[a-zA-Z]+</td>', GET.text)):
 			stop = v.find('<')
 			self.word_dict[v[1:stop]] = e
@@ -44,8 +50,14 @@ class DecryptCesar:
 
 		return res
 
-	def brute_force(self):
+	@staticmethod
+	def check_if_b64(encrypted):
+		match = re.fullmatch(r'^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)?$', encrypted)
+		if match:
+			return True
+		return False
 
+	def brute_force(self):
 		count = 0
 
 		for i in range(1, 26):
@@ -68,11 +80,18 @@ def main():
 
 	key = 'abcdefghijklmnopqrstuvwxyz'
 	url = 'https://gist.github.com/deekayen/4148741'
-	encrypted = "FRZDUGV GLH PDQB WLPHV EHIRUH WKHLU GHDWKV; WKH YDOLDQW QHYHU WDVWH RI GHDWK EXW RQFH."
 
-	test1 = DecryptCesar(url=url, key=key, enctypted_str=encrypted)
+	encrypted = "RlJaRFVHViBHTEggUERRQiBXTFBIViBFSElSVUggV0tITFUgR0hEV0tWOyBXS0ggWURPTERRVyBRSFlIVSBXRFZXSCBSSSBHSERXSyBFWFcgUlFGSC4="
+	encrypted_2 = "jxu gkuijyed ev mxujxuh q secfkjuh sqd jxyda yi de cehu ydjuhuijydw jxqd jxu gkuijyed ev mxujxuh q ikrcqhydu sqd imyc"
+
+	test1 = DecryptCesar(url=url, key=key, encrypted_str=encrypted)
 	test1.get_words()
-	print(test1.brute_force())
+	print(test1.brute_force(), end='\n\n')
+
+	test2 = DecryptCesar(url=url, key='abcdefghijklmnopqrstuvwxyz', encrypted_str=encrypted_2)
+	test2.get_words()
+
+	print(test2.brute_force())
 
 	# Result: {'cowards die many times before their deaths; the valiant never taste of death but once.'}
 
