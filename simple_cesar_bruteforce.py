@@ -2,6 +2,7 @@ import requests
 import re
 import base64
 import sys
+import string
 
 class DecryptCesar:
 
@@ -18,7 +19,7 @@ class DecryptCesar:
 		self.key = key
 		self.encrypted_str = encrypted_str
 
-		self.highest_chance = set()
+		self.most_likely = set()
 		self.word_dict = {}
 
 	def get_words(self):
@@ -41,7 +42,7 @@ class DecryptCesar:
 		res = ''
 
 		off_set_dict = {}
-		regular_dict = dict(enumerate('abcdefghijklmnopqrstuvwxyz'))
+		regular_dict = dict(enumerate(string.ascii_lowercase))
 
 		for e, v in enumerate(key):
 			off_set_dict[v] = (e + off_set) % 26
@@ -72,30 +73,33 @@ class DecryptCesar:
 				if x in self.word_dict:
 					count += 1
 			if count > 1:
-				self.highest_chance.add(self.decrypt(self.encrypted_str, i, key=self.key))
-
+				self.most_likely.add(self.decrypt(self.encrypted_str, i, key=self.key))
 			count = 0
 
-		if not self.highest_chance:
-			for i in range(1, 26):
-				print(self.decrypt(self.encrypted_str, i, key=self.key))
+		if not self.most_likely:
+			lst = (DecryptCesar.decrypt(self.encrypted_str, i, key=self.key).split(' ') for i in range(1, 26))
+			while True:
+				enter = input('Enter next to get the next possible result: ')
+				print(next(lst)[0])
 
-		return 'Most likely --> ' + str(self.highest_chance).strip('{').strip('}')
+				if enter != 'next':
+					break
+
+		return 'Most likely --> ' + str(self.most_likely).strip('{').strip('}')
 
 
 def main():
 
-	key = 'abcdefghijklmnopqrstuvwxyz'
 	url = 'https://gist.github.com/deekayen/4148741'
 
 	encrypted = "RlJaRFVHViBHTEggUERRQiBXTFBIViBFSElSVUggV0tITFUgR0hEV0tWOyBXS0ggWURPTERRVyBRSFlIVSBXRFZXSCBSSSBHSERXSyBFWFcgUlFGSC4="
-	encrypted_2 = "jxu gkuijyed ev mxujxuh q secfkjuh sqd jxyda yi de cehu ydjuhuijydw jxqd jxu gkuijyed ev mxujxuh q ikrcqhydu sqd imyc"
+	encrypted_2 = "jxu gkuijyed ev mxujxuh q secfkjuh sqd jxyda yi de cehu ydjuhuijydw jxqd jxu gkuijyed ev mxujxuh q ikrcqhydu sqd imyc."
 
-	test1 = DecryptCesar(url=url, key=key, encrypted_str=encrypted)
+	test1 = DecryptCesar(url=url, key=string.ascii_lowercase, encrypted_str=encrypted)
 	test1.get_words()
 	print(test1.brute_force(), end='\n\n')
 
-	test2 = DecryptCesar(url=url, key='abcdefghijklmnopqrstuvwxyz', encrypted_str=encrypted_2)
+	test2 = DecryptCesar(url=url, key=string.ascii_lowercase, encrypted_str=encrypted_2)
 	test2.get_words()
 
 	print(test2.brute_force())
