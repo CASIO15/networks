@@ -1,6 +1,7 @@
 import requests
 import re
 import base64
+import sys
 
 class DecryptCesar:
 
@@ -21,12 +22,18 @@ class DecryptCesar:
 		self.word_dict = {}
 
 	def get_words(self):
-		GET = requests.get(self.url)
-		print(f'[+] Making a GET request: {self.url}')
+		try:
+			GET = requests.get(self.url)
+			print(f'[+] Making a GET request: {self.url}')
 
-		for e, v in enumerate(re.findall(r'>[a-zA-Z]+</td>', GET.text)):
-			stop = v.find('<')
-			self.word_dict[v[1:stop]] = e
+			for e, v in enumerate(re.findall(r'>[a-zA-Z]+</td>', GET.text)):
+				stop = v.find('<')
+				self.word_dict[v[1:stop]] = e
+
+		except requests.exceptions.ConnectionError:
+			print('[-] An error occurred...')
+			sys.exit()
+
 
 	@staticmethod
 	def decrypt(encrypted, off_set, *, key):
@@ -93,7 +100,6 @@ def main():
 
 	print(test2.brute_force())
 
-	# Result: {'cowards die many times before their deaths; the valiant never taste of death but once.'}
 
 if __name__ == '__main__':
 	main()
