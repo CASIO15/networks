@@ -16,8 +16,6 @@ def decrypt(string, off_set):
 
 		else:
 			res += ' '
-
-
 	return res
 
 def brute_force(string):
