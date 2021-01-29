@@ -47,7 +47,6 @@ class DecryptCesar:
 	def brute_force(self):
 
 		count = 0
-		lst_cnt = []
 
 		for i in range(1, 26):
 			for x in DecryptCesar.decrypt(self.encrypted_str, i, key=self.key).split(' '):
