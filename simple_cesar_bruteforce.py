@@ -3,7 +3,6 @@ import re
 import base64
 import string
 
-
 def check_if_b64(encrypted):
 	match = re.fullmatch(r'^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)?$', encrypted)
 	if match:
@@ -47,11 +46,8 @@ class DecryptCesar:
 		encrypted = encrypted.lower()
 		res = ''
 
-		off_set_dict = {}
+		off_set_dict = {v: (e+off_set) % 26 for e, v in enumerate(key)}
 		regular_dict = dict(enumerate(string.ascii_lowercase))
-
-		for e, v in enumerate(key):
-			off_set_dict[v] = (e + off_set) % 26
 
 		for i in encrypted:
 			if i != ' ':
@@ -76,7 +72,6 @@ class DecryptCesar:
 			count = 0
 
 		sorted_lst = sorted(self.most_likely, key=lambda seq: seq[0])
-
 		return 'Most likely --> ' + sorted_lst[-1][1]
 
 
