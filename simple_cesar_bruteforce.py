@@ -75,9 +75,9 @@ class DecryptCesar:
 				self.most_likely.append((count, self.decrypt(self.encrypted_str, i, key=self.key)))
 			count = 0
 
-			self.most_likely.sort(key=lambda seq: seq[0])
+		sorted_lst = sorted(self.most_likely, key=lambda seq: seq[0])
 
-		return 'Most likely --> ' + str(self.most_likely[-1][1])
+		return 'Most likely --> ' + sorted_lst[-1][1]
 
 
 def main():
