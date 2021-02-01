@@ -13,7 +13,7 @@ def check_if_b64(encrypted):
 class DecryptCesar:
 
 	def __init__(self, url, key, encrypted_str):
-		if 'https' not in url and 'http' not in url:
+		if 'http' not in url:
 			print(f'[-] Invalid url...')
 			raise ValueError(f'The specified url |{url}| is not valid')
 
