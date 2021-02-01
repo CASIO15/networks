@@ -25,7 +25,7 @@ class DecryptCesar:
 		self.key = key
 		self.encrypted_str = encrypted_str
 
-		self.most_likely = set()
+		self.most_likely = []
 		self.word_dict = {}
 
 	def get_words(self):
@@ -72,26 +72,19 @@ class DecryptCesar:
 				if x in self.word_dict:
 					count += 1
 			if count > 1:
-				self.most_likely.add(self.decrypt(self.encrypted_str, i, key=self.key))
+				self.most_likely.append((count, self.decrypt(self.encrypted_str, i, key=self.key)))
 			count = 0
 
-		if not self.most_likely:
-			lst = (DecryptCesar.decrypt(self.encrypted_str, i, key=self.key).split(' ') for i in range(1, 26))
-			while True:
-				enter = input('Enter next to get the next possible result: ')
-				print(next(lst)[0])
+			self.most_likely.sort(key=lambda seq: seq[0])
 
-				if enter != 'next':
-					break
-
-		return 'Most likely --> ' + str(self.most_likely).strip('{').strip('}')
+		return 'Most likely --> ' + str(self.most_likely[-1][1])
 
 
 def main():
 	url = 'https://gist.github.com/deekayen/4148741'
 
 	encrypted = "RlJaRFVHViBHTEggUERRQiBXTFBIViBFSElSVUggV0tITFUgR0hEV0tWOyBXS0ggWURPTERRVyBRSFlIVSBXRFZXSCBSSSBHSERXSyBFWFcgUlFGSC4="
-	encrypted_2 = "jxu gkuijyed ev mxujxuh q secfkjuh sqd jxyda yi de cehu ydjuhuijydw jxqd jxu gkuijyed ev mxujxuh q ikrcqhydu sqd imyc."
+	encrypted_2 = "Pm ol ohk hufaopun jvumpkluaphs av zhf, ol dyval pa pu jpwoly, aoha pz, if zv johunpun aol vykly vm aol slaalyz vm aol hswohila, aoha uva h dvyk jvbsk il thkl vba."
 
 	test1 = DecryptCesar(url=url, key=string.ascii_lowercase, encrypted_str=encrypted)
 	test1.get_words()
