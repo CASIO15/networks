@@ -4,14 +4,6 @@ from time import perf_counter
 enter = input('Enter the IP address you want to scan: ')
 start = int(input('START: '))
 stop = int(input('STOP: '))
-print('''
- ██████╗ █████╗ ███████╗██╗ ██████╗  ██╗███████╗
-██╔════╝██╔══██╗██╔════╝██║██╔═══██╗███║██╔════╝
-██║     ███████║███████╗██║██║   ██║╚██║███████╗
-██║     ██╔══██║╚════██║██║██║   ██║ ██║╚════██║
-╚██████╗██║  ██║███████║██║╚██████╔╝ ██║███████║
- ╚═════╝╚═╝  ╚═╝╚══════╝╚═╝ ╚═════╝  ╚═╝╚══════
-''')
 ports = []
 
 print(f'scanning {enter} from port {start} to {stop}\n')
