@@ -14,7 +14,6 @@ def bad_chars():
 			continue
 		else:
 			x += '\\x{:02x}'.format(i)
-
 	return x
 
 def main():
