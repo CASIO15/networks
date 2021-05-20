@@ -10,7 +10,7 @@ def bad_chars():
 		args = [int('0'+i, 16) for i in sys.argv[1:]]
 
 	for i in range(1, 256):
-		if len(sys.argv) and any([True for x in args if i == x]):
+		if len(sys.argv) > 1 and any([True for x in args if i == x]):
 			continue
 		else:
 			x += '\\x{:02x}'.format(i)
