@@ -17,10 +17,10 @@ def bad_chars():
 		return x
 
 def main():
-	if len(sys.argv):
-		print(bad_chars())
-	elif sys.argv[1] == '-h' or sys.argv[1] == '--help':
+	if len(sys.argv) == 2 and (sys.argv[1] != '-h' or sys.argv[1] != '--help'):
 		print(_help())
+	else:
+		print(bad_chars())
 
 if __name__ == '__main__':
 	main()
