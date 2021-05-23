@@ -14,7 +14,7 @@ def bad_chars():
 				continue
 			else:
 				x += '\\x{:02x}'.format(i)
-		return x
+	return x
 
 def main():
 	if len(sys.argv) == 2 and (sys.argv[1] != '-h' or sys.argv[1] != '--help'):
